@@ -11,27 +11,50 @@ const orderSchema = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: "shop",
   },
-  order: {
-    type: String,
-  },
-  sum: {
-    type: String,
+  order: [
+    {
+      dishid: {
+        type: Schema.Types.ObjectId,
+        ref: "dish",
+      },
+      price: {
+        type: Number,
+        required: true,
+        min: 0.01,
+      },
+      qwantity: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+      cost: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+    },
+  ],
+  total: {
+    type: Number,
+    required: true,
+    min: 0.01,
   },
 });
 
-const schemaAddUser = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
-  phone: Joi.string().min(3).required(),
-  email: Joi.string()
-    .email()
-    .pattern(emailRegexp, "Email must be in format mail@mail.com")
-    .required(),
-  adress: Joi.string().required(),
+const schemaAddOrder = Joi.object({
+  order: Joi.array().items(
+    Joi.object({
+      price: Joi.number().min(0.01).required(),
+      qwantity: Joi.number().min(1).required(),
+      cost: Joi.number().min(1).required(),
+    })
+  ),
+  total: Joi.number().min(0.01).required(),
 });
 
-const User = mongoose.model("users", userSchema);
+const Order = mongoose.model("orders", orderSchema);
 
 module.exports = {
-  User,
-  schemaAddUser,
+  Order,
+  schemaAddOrder,
 };

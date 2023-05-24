@@ -8,6 +8,10 @@ const dishSchema = new mongoose.Schema({
   price: {
     type: String,
   },
+  image: {
+    type: String,
+  },
+
   // dishes: [{ type: Schema.Types.ObjectId, ref: "dish" }],
 });
 
