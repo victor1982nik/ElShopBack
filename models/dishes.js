@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 // const Joi = require("joi");
 
-const dishSchema = new mongoose.Schema({
+const dishSchema = new Schema({
   name: {
     type: String,
   },
   price: {
-    type: String,
+    type: Number,
   },
   image: {
     type: String,
@@ -15,7 +15,7 @@ const dishSchema = new mongoose.Schema({
   // dishes: [{ type: Schema.Types.ObjectId, ref: "dish" }],
 });
 
-const Dish = mongoose.model("dishes", dishSchema);
+const Dish = model("dish", dishSchema);
 
 module.exports = {
   Dish,

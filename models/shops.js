@@ -7,7 +7,7 @@ const shopSchema = new Schema({
   dishes: [{ type: Schema.Types.ObjectId, ref: "dish" }],
 });
 
-const Shop = model("shops", shopSchema);
+const Shop = model("shop", shopSchema);
 
 module.exports = {
   Shop,
