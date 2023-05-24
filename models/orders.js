@@ -1,21 +1,20 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 // const { ValidationError } = require("../helpers/errors");
-const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Set name for user"],
+const orderSchema = new mongoose.Schema({
+  userid: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
   },
-  email: {
-    type: String,
-    required: [true, "Set email for user"],
+  shopid: {
+    type: Schema.Types.ObjectId,
+    ref: "shop",
   },
-  phone: {
+  order: {
     type: String,
   },
-  adress: {
+  sum: {
     type: String,
   },
 });
