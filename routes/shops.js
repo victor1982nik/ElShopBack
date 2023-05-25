@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const { ctrlWrapper } = require("../middlewares/ctrlWrapper");
+const { ctrlWrapper } = require("../middlewares/");
 const ctrl = require("../controllers/shops");
 
 router.get("/", ctrlWrapper(ctrl.getShops));
