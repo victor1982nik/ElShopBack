@@ -34,9 +34,6 @@ const orderSchema = new Schema({
       //   type: Schema.Types.ObjectId,
       //   ref: "dish",
       // },
-      _id: {
-        type: String,
-      },
       name: {
         type: String,
         required: true,
@@ -47,11 +44,9 @@ const orderSchema = new Schema({
         min: 0.01,
       },
       qwantity: {
-        type: String,
+        type: Number,
         required: true,
-      },
-      image: {
-        type: String,
+        min: 1,
       },
     },
   ],
@@ -65,22 +60,20 @@ const orderSchema = new Schema({
 const schemaAddOrder = Joi.object({
   user: Joi.object({
     name: Joi.string().min(3).max(30).required(),
-    phone: Joi.string()
-      .pattern(phoneRegexp, "Phone must be in format +380xxxxxxxxx")
-      .required(),
+    phone: Joi.string().pattern(
+      phoneRegexp,
+      "Phone must be in format +380xxxxxxxxx"
+    ),
     email: Joi.string()
       .email()
-      .pattern(emailRegexp, "Email must be in format mail@mail.com")
-      .required(),
-    address: Joi.string().required(),
+      .pattern(emailRegexp, "Email must be in format mail@mail.com"),
+    address: Joi.string(),
   }),
   order: Joi.array().items(
     Joi.object({
-      _id: Joi.string(),
       name: Joi.string(),
       price: Joi.number().min(0.01).required(),
-      qwantity: Joi.string().required(),
-      image: Joi.string(),
+      qwantity: Joi.number().min(1).required(),
     })
   ),
   total: Joi.number().min(0.01).required(),
