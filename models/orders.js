@@ -17,13 +17,16 @@ const orderSchema = new Schema({
     phone: {
       type: String,
     },
-    adress: {
+    address: {
       type: String,
     },
   },
+  // shopid: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "shop",
+  // },
   shopid: {
-    type: Schema.Types.ObjectId,
-    ref: "shop",
+    type: String,
   },
   order: [
     {
@@ -31,23 +34,24 @@ const orderSchema = new Schema({
       //   type: Schema.Types.ObjectId,
       //   ref: "dish",
       // },
+      _id: {
+        type: String,
+      },
       name: {
         type: String,
+        required: true,
       },
       price: {
         type: Number,
         required: true,
         min: 0.01,
       },
-      quantity: {
-        type: Number,
+      qwantity: {
+        type: String,
         required: true,
-        min: 1,
       },
-      cost: {
-        type: Number,
-        required: true,
-        min: 1,
+      image: {
+        type: String,
       },
     },
   ],
@@ -68,17 +72,19 @@ const schemaAddOrder = Joi.object({
       .email()
       .pattern(emailRegexp, "Email must be in format mail@mail.com")
       .required(),
-    adress: Joi.string().required(),
+    address: Joi.string().required(),
   }),
   order: Joi.array().items(
     Joi.object({
+      _id: Joi.string(),
       name: Joi.string(),
       price: Joi.number().min(0.01).required(),
-      quantity: Joi.number().min(1).required(),
-      cost: Joi.number().min(1).required(),
+      qwantity: Joi.string().required(),
+      image: Joi.string(),
     })
   ),
   total: Joi.number().min(0.01).required(),
+  shopid: Joi.string(),
 });
 
 const Order = model("orders", orderSchema);
