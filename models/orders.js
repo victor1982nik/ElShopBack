@@ -4,58 +4,61 @@ const Joi = require("joi");
 const emailRegexp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const phoneRegexp = /^\+380\d{3}\d{2}\d{2}\d{2}$/;
 
-const orderSchema = new Schema({
-  user: {
-    name: {
-      type: String,
-      required: [true, "Set name for user"],
-    },
-    email: {
-      type: String,
-      required: [true, "Set email for user"],
-    },
-    phone: {
-      type: String,
-    },
-    address: {
-      type: String,
-    },
-  },
-  // shopid: {
-  //   type: Schema.Types.ObjectId,
-  //   ref: "shop",
-  // },
-  shopid: {
-    type: String,
-  },
-  order: [
-    {
-      // dishid: {
-      //   type: Schema.Types.ObjectId,
-      //   ref: "dish",
-      // },
+const orderSchema = new Schema(
+  {
+    user: {
       name: {
         type: String,
-        required: true,
+        required: [true, "Set name for user"],
       },
-      price: {
-        type: Number,
-        required: true,
-        min: 0.01,
+      email: {
+        type: String,
+        required: [true, "Set email for user"],
       },
-      qwantity: {
-        type: Number,
-        required: true,
-        min: 1,
+      phone: {
+        type: String,
+      },
+      address: {
+        type: String,
       },
     },
-  ],
-  total: {
-    type: Number,
-    required: true,
-    min: 0.01,
+    // shopid: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "shop",
+    // },
+    shopid: {
+      type: String,
+    },
+    order: [
+      {
+        // dishid: {
+        //   type: Schema.Types.ObjectId,
+        //   ref: "dish",
+        // },
+        name: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+          min: 0.01,
+        },
+        qwantity: {
+          type: Number,
+          required: true,
+          min: 1,
+        },
+      },
+    ],
+    total: {
+      type: Number,
+      required: true,
+      min: 0.01,
+    },
   },
-});
+  { timestamps: true }
+);
 
 const schemaAddOrder = Joi.object({
   user: Joi.object({
